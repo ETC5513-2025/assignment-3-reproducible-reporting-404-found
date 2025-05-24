@@ -1,26 +1,18 @@
 ---
-title: "slide"
-format: html
+title: "Presentation of Water Insecurity in US"
 editor: visual
+author: "Xinran Yang, Parth Tendulkar and Bagas Ari Wibawanto from Group 404 Found"
+date: today
+format: 
+  revealjs:
+    theme: default
+    slide-number: true
+    embed-resources: true # Good for making it self-contained
 ---
 
-## Quarto
+## Executive Summary and Introduction {.smaller}
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+-   **Executive Summary:** The water insecurity data helps our team produce insightful maps of water resources and infrastructure nationwide in the US. These maps show socio-economic elements like housing and indoor plumbing that affect water use and needs. We integrate ACS data to help water resource managers and policymakers. This method would help identify vulnerable people and infrastructural needs.
+-   **Introduction :** Effective water management and policymaking need to understand the intricate relationship between socio-economic factors and water supplies. Annually updated, the U.S. Census Bureau's American Community Survey (ACS) provides demographic, social, economic, and housing data. In the next sections, we will explain how to use this data and offer water infrastructure and accessibility findings, such as showing how home infrastructure age, indoor plumbing prevalence, and household income affect water accessibility and affordability. This report will show how mapped ACS data can inform targeted actions and strategic planning for sustainable water resource management and infrastructure.
 
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
-
-You can add options to executable code like this
-
-```{r}
-#| echo: false
-2 * 2
-```
-
-The `echo: false` option disables the printing of code (only output is displayed).
+---
