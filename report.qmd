@@ -1,19 +1,285 @@
 ---
-title: "report"
-format: html
+title: "Water Insecurity"
+format:
+  pdf: 
+    pdf-engine: xelatex
+    mainfont: "Arial"
+    keep-tex: true
 editor: visual
-author: Xinran Yang, Parth Tendulkar and Bagas Ari Wibawanto (Group: 404 Found)
+author: "Xinran Yang, Parth Tendulkar, Bagas Ari Wibawanto (Group: 404 Found)"
 ---
 
 ## Executive Summary
+
 The water insecurity data helps our team produce insightful maps of water resources and infrastructure nationwide in the US. These maps show socio-economic elements like housing and indoor plumbing that affect water use and needs. We integrate ACS data to help water resource managers and policymakers. This method would help identify vulnerable people and infrastructural needs.
 
 ## Introduction
+
 Effective water management and policymaking need to understand the intricate relationship between socio-economic factors and water supplies. Annually updated, the U.S. Census Bureau's American Community Survey (ACS) provides demographic, social, economic, and housing data. In the next sections, we will explain how to use this data and offer water infrastructure and accessibility findings, such as showing how home infrastructure age, indoor plumbing prevalence, and household income affect water accessibility and affordability. This report will show how mapped ACS data can inform targeted actions and strategic planning for sustainable water resource management and infrastructure.
 
 ## Methodology
 
+This report explores the spatial and temporal variation in global water insecurity levels utilizing the water_insecurity_2022 and water_insecurity_2023 data sets.
+
+The spatial distribution of global water insecurity was mapped using the dplyr and purrr packages for 2022 and 2023 separately. In this way, it can see if there are differences in indoor plumbing availability between western and eastern counties in the United States. (@fig-1 @fig-2)
+
+The lacking of intact indoor plumbing is analysed by mapping the regional distribution of changes in plumbing insecurity by county through changes in the number of in Plumbing Insecurity from 2022-2023. The map visualisation and colour differentiation shows the regional distribution and drasticness of changes in plumbing facilities.(@fig-3)
+
+We compare each of the counties to the national average so that we can see whether the lack of plumbing facilities in each county is higher or lower than what is typical across the United States. In addition, the maps are used to visually highlight the relative condition of counties, clearly depict their deviation from the national average, and illustrate regional patterns and differences.(@fig-4 @fig-5)
+
+This Comparative analysis of county-level 2022-2023 data on the percentage of counties lacking piped facilities across the U.S. using bar charts reveals that the top 10 counties with the largest changes show a clear trend of differentiation. This reflects the dramatic localized changes in county-level water supply infrastructure across the United States. Such changes may be influenced by regional differences in economic development, infrastructure investment priorities, and socioeconomic context. (@fig-6)
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(tidyr)
+library(purrr)
+library(readr)
+library(sf)        
+library(ggplot2)
+library(patchwork) 
+library(kableExtra)
+water_insecurity_2022 <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-28/water_insecurity_2022.csv')
+water_insecurity_2023 <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-28/water_insecurity_2023.csv')
+water_insecurity_2022 <- water_insecurity_2022 |> 
+  dplyr::mutate(
+    geometry = purrr::map(geometry, \(geo) {
+      eval(parse(text = geo))
+    } )
+  )
+water_insecurity_2023 <- water_insecurity_2023 |> 
+  dplyr::mutate(
+    geometry = purrr::map(geometry, \(geo) {
+      eval(parse(text = geo))
+    } )
+  )
+
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+  
+library(tidycensus)
+library(sf) 
+library(janitor) 
+library(tidyverse)
+get_census_data <- function(geography, var_names, year, proj, survey_var) {
+  df <- get_acs(
+    geography = geography,
+    variable = var_names,
+    year = year,
+    geometry = TRUE,
+    survey = survey_var) |>
+    clean_names() |>
+    st_transform(proj) |>
+    mutate(year = year)
+  
+  return(df) 
+}
+
+# Grab relevant variables - B01003_001: total population, B25049_004: households lacking plumbing----
+vars <- c("B01003_001", "B25049_004")
+
+# Pull data for 2023 and 2022 for all US counties ------
+water_insecurity_2023 <- get_census_data(
+  geography = 'county', 
+  var_names = vars, 
+  year = "2023", 
+  proj = "EPSG:5070", 
+  survey_var = "acs1"
+) |>
+  mutate(
+    variable_long = case_when(
+      variable == "B01003_001" ~ "total_pop",
+      variable == "B25049_004" ~ "plumbing",
+      .default = NA_character_  
+    )
+  ) |> 
+  select(geoid, name, variable_long, estimate, geometry, year) |> 
+  pivot_wider(
+    names_from = variable_long,
+    values_from = estimate
+  ) |> 
+  mutate(
+    percent_lacking_plumbing = (plumbing / total_pop) * 100
+  )
+
+water_insecurity_2022 <- get_census_data(
+  geography = 'county', 
+  var_names = vars, 
+  year = "2022", 
+  proj = "EPSG:5070", 
+  survey_var = "acs1"
+) |>
+  mutate(
+    variable_long = case_when(
+      variable == "B01003_001" ~ "total_pop",
+      variable == "B25049_004" ~ "plumbing",
+      .default = NA_character_  
+    )
+  ) |> 
+  select(geoid, name, variable_long, estimate, geometry, year) |> 
+  pivot_wider(
+    names_from = variable_long,
+    values_from = estimate
+  ) |> 
+  mutate(
+    percent_lacking_plumbing = (plumbing / total_pop) * 100
+  )
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+#| label: fig-1
+#| fig-cap: "Percent of Households Lacking Plumbing Facilities by USA County (2022)"
+water_insecurity <- bind_rows(
+  water_insecurity_2022,
+  water_insecurity_2023
+)
+p1<-ggplot(data = filter(water_insecurity, year == 2022)) +
+  geom_sf(aes(fill = percent_lacking_plumbing), color = NA) +  
+  scale_fill_viridis_c(option = "plasma", na.value = "grey80", name = "% Lacking Plumbing") +
+  labs(
+    title = "Percent of Households Lacking Plumbing Facilities by USA County (2022)",
+    caption = "Source: ACS 1-year Estimates"
+  ) +
+  theme_minimal()
+print(p1)
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+#| label: fig-2
+#| fig-cap: "Percent of Households Lacking Plumbing Facilities by USA County (2023)"
+p2<-ggplot(data = filter(water_insecurity, year == 2023)) +
+  geom_sf(aes(fill = percent_lacking_plumbing), color = NA) +
+  scale_fill_viridis_c(option = "plasma", na.value = "grey80", name = "% Lacking Plumbing") +
+  labs(
+    title = "Percent of Households Lacking Plumbing Facilities by USA County (2023)",
+    caption = "Source: ACS 1-year Estimates"
+  ) +
+  theme_minimal()
+print(p2)
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+#| label: fig-3
+#| fig-cap: "Change in Plumbing Insecurity by County"
+water_compare <- water_insecurity_2022 %>% 
+  select(geoid, name, percent_lacking_plumbing_2022 = percent_lacking_plumbing) %>% 
+  inner_join(
+    water_insecurity_2023 %>% 
+      st_drop_geometry() %>% 
+      select(geoid, percent_lacking_plumbing_2023 = percent_lacking_plumbing),
+    by = "geoid"
+  ) %>% 
+  mutate(
+    abs_change = percent_lacking_plumbing_2023 - percent_lacking_plumbing_2022,
+    pct_change = (abs_change / percent_lacking_plumbing_2022) * 100
+  ) %>% 
+  arrange(desc(abs_change))
+water_compare_df <- water_compare %>% st_drop_geometry()
+water_change_map <- water_insecurity_2022 %>% 
+  left_join(water_compare_df %>% select(geoid, abs_change, pct_change), by = "geoid")
+
+ggplot(data = water_change_map) +
+  geom_sf(aes(fill = abs_change), color = NA) +
+  scale_fill_gradient2(
+    low = "blue", mid = "lightyellow", high = "red", midpoint = 0,
+    name = "Change in % Lacking Plumbing\n(2023 - 2022)"
+  ) +
+  labs(title = "Change in Plumbing Insecurity by County") +
+  theme_minimal()
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+#| label: fig-4
+#| fig-cap: "Differences in the proportion of regions lacking indoor plumbing relative to the USA average(2022)"
+mean_2022 <- mean(water_insecurity_2022$percent_lacking_plumbing, na.rm = TRUE)
+
+water_insecurity_2022 <- water_insecurity_2022 |>
+  dplyr::mutate(
+    diff_from_global_mean = percent_lacking_plumbing - mean_2022
+  )
+ggplot(water_insecurity_2022) +
+  geom_sf(aes(fill = diff_from_global_mean)) +
+  scale_fill_gradient2(
+    low = "blue", high = "purple", mid = "red",
+    midpoint = 0, name = "Difference relative to global average in 2022 (%)"
+  ) +
+  labs(
+    title = "Differences in the proportion of regions lacking indoor plumbing relative to the USA average",
+    subtitle = paste("USA mean:", round(mean_2022, 2), "%"),
+    fill = "difference in value(%)"
+  ) +
+  theme_minimal()
+
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+#| label: fig-5
+#| fig-cap: "Differences in the proportion of regions lacking indoor plumbing relative to the USA average(2023)"
+mean_2023 <- mean(water_insecurity_2023$percent_lacking_plumbing, na.rm = TRUE)
+water_insecurity_2023 <- water_insecurity_2023 |>
+  dplyr::mutate(
+    diff_from_global_mean = percent_lacking_plumbing - mean_2023
+  )
+ggplot(water_insecurity_2023) +
+  geom_sf(aes(fill = diff_from_global_mean)) +
+  scale_fill_gradient2(
+    low = "blue", high = "purple", mid = "red",
+    midpoint = 0, name = "Difference relative to global average in 2023 (%)"
+  ) +
+  labs(
+    title = "Differences in the proportion of regions lacking indoor plumbing relative to the USA average",
+    subtitle = paste("USA mean:", round(mean_2023, 2), "%"),
+    fill = "difference in value(%)"
+  ) +
+  theme_minimal()
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+#| label: fig-6
+#| fig-cap: "Top 10 Counties with Largest Change in Lacking Plumbing(%)"
+water_compare_long <- water_compare %>%
+  select(geoid, name, percent_lacking_plumbing_2022, percent_lacking_plumbing_2023) %>%
+  pivot_longer(
+    cols = starts_with("percent_lacking_plumbing_"),
+    names_to = "year",
+    names_prefix = "percent_lacking_plumbing_",
+    values_to = "percent_lacking_plumbing"
+  ) %>%
+  mutate(year = as.character(year)) 
+top10 <- water_compare %>%
+  arrange(desc(abs_change)) %>%
+  slice_head(n = 10) %>%
+  pull(geoid)
+
+water_compare_long_top10 <- water_compare_long %>%
+  filter(geoid %in% top10)
+
+ggplot(water_compare_long_top10, aes(x = reorder(name, -percent_lacking_plumbing), 
+                                     y = percent_lacking_plumbing, 
+                                     fill = year)) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "Top 10 Counties with Largest Change in Lacking Plumbing(%)",
+    x = "County",
+    y = "Percent Lacking Plumbing (%)",
+    fill = "Year"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 8),
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  )
+```
+
 ## Results
+
+Based on @fig-3, it can be concluded that the majority of Change in Plumbing Insecurity is concentrated in the western United States. Changes in the eastern U.S. are concentrated in only a scattering of counties.The situation in 2023 improves slightly compared to 2022, but high-risk counties are still concentrated, suggesting that local water security and infrastructure investments still need to be further strengthened.
+
+The Western compared to the national average shows a generally higher percentage of lack of indoor plumbing than the national average. This indicates that the West is significantly weaker than the national average in terms of indoor plumbing availability. (@fig-4)
+
+The majority of eastern counties show red (near 0%) or slightly higher values, indicating better accessibility. This indicates that the East is on par with the national average in terms of indoor plumbing availability. (@fig-5)
+
+The top 10 counties with the highest percentage of households lacking plumbing as well as the greatest change in 2022-2023 are shown through @fig-6.
 
 ## Discussion, conclusion and recommendations
 
