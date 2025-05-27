@@ -19,9 +19,9 @@ Effective water management and policymaking need to understand the intricate rel
 
 ## Methodology
 
-This report explores the spatial and temporal variation in global water insecurity levels utilizing the water_insecurity_2022 and water_insecurity_2023 data sets.
+This report explores the spatial and temporal variation in USA water insecurity levels utilizing the `water_insecurity_2022` and `water_insecurity_2023` data sets.
 
-The spatial distribution of global water insecurity was mapped using the dplyr and purrr packages for 2022 and 2023 separately. In this way, it can see if there are differences in indoor plumbing availability between western and eastern counties in the United States. (@fig-1 @fig-2)
+The spatial distribution of USA water insecurity was mapped using the `dplyr` and `purrr` packages for 2022 and 2023 separately. In this way, it can see if there are differences in indoor plumbing availability between western and eastern counties in the United States. (@fig-1 @fig-2)
 
 The lacking of intact indoor plumbing is analysed by mapping the regional distribution of changes in plumbing insecurity by county through changes in the number of in Plumbing Insecurity from 2022-2023. The map visualisation and colour differentiation shows the regional distribution and drasticness of changes in plumbing facilities.(@fig-3)
 
