@@ -5,7 +5,8 @@ author: "Xinran Yang, Parth Tendulkar and Bagas Ari Wibawanto from Group 404 Fou
 date: today
 format: 
   revealjs:
-    theme: default
+    theme: simple
+    css: style.css
     slide-number: true
     embed-resources: true # Good for making it self-contained
 ---
@@ -29,16 +30,37 @@ format:
 
 ------------------------------------------------------------------------
 
--   **Results :**![](images/clipboard-934263326.png)
+## Results
+
+<img src="images/clipboard-934263326.png" style="border: 2px solid black; width:80%; display: block; margin-left: auto; margin-right: auto;" />
+
+<small> The map illustrates county-level changes in plumbing insecurity across the U.S. between 2022 and 2023. Most counties saw minimal change, while select areas in the Southwest experienced notable improvements (purple) or worsening (red) in plumbing access. Counties with missing or unchanged data appear in white. </small>
 
 ------------------------------------------------------------------------
 
-![](images/clipboard-560776438.png)
+<img src="images/clipboard-560776438.png" style="border: 2px solid black; width:80%; display: block; margin-left: auto; margin-right: auto;" />
+
+<small> This map shows the difference in the percentage of people lacking indoor plumbing in each county compared to the 2022 U.S. average (0.1%). Most counties highlighted in red exceed the national average, indicating higher plumbing insecurity. A few counties in the Southwest (shaded in pink and purple) show extreme disparities, with values more than 2–3% above the national average. </small>
+
 
 ------------------------------------------------------------------------
 
-![](images/clipboard-2990059093.png)
+<img src="images/clipboard-2990059093.png" style="border: 2px solid black; width:80%; display: block; margin-left: auto; margin-right: auto;" />
+
+<small> This map displays the percentage of people lacking indoor plumbing in 2023, relative to the national average (0.1%). Counties shaded in red exceed the average, while the deepest disparities (above 2–3%) are seen in some counties of Arizona and New Mexico. Many areas across the Southeast and Northeast also continue to show above-average plumbing insecurity. </small>
 
 ------------------------------------------------------------------------
 
-![](images/clipboard-2719483658.png)
+<img src="images/clipboard-2719483658.png" style="border: 2px solid black; width:80%; display: block; margin-left: auto; margin-right: auto;" />
+
+## Conclusion and Recommendations
+
+#### Conclusion
+
+<small>Plumbing insecurity continues to be a problem in many parts of the U.S., and in some areas, it's actually getting worse. While a lot of counties stayed close to the national average (0.1%), certain regions, especially in the Southwest, South, and Northeast had much higher rates of households without proper plumbing. Comparing 2022 to 2023, some of the counties already struggling saw even bigger increases, pointing to growing gaps in basic infrastructure.</small>
+
+#### Recommendations
+-  <small> **Invest in Infrastructure:** Focus government funding on counties that are struggling the most, especially places like Arizona, New Mexico, Texas, and Alaska—so they can improve basic plumbing systems.</small>\
+-  <small> **Understand Local Needs:** Run local surveys in areas where the problem is getting worse. This can help figure out what's really causing it—like poor housing conditions or changes in population.</small>\
+-   <small>**Support Through Policy:** Give financial help, like grants or tax breaks, to encourage people and landlords to fix or upgrade plumbing in low-income communities.</small>\
+-   <small>**Include in Health Planning:** Make sure plumbing access is considered when making public health or housing plans, so it gets the attention and support it needs.</small>\
