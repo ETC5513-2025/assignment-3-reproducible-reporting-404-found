@@ -18,10 +18,7 @@ Analysis of water insecurity data enables the production of insightful maps of w
 
 ## Introduction
 
-Effective water management and policymaking need to understand the intricate relationship between socio-economic factors and water supplies. Annually updated, the U.S. Census Bureau's American Community Survey (ACS) provides demographic, social, economic, and housing data. The `water_insecurity_2022` and `water_insecurity_2023 datasets` used in this study are compiled from relevant indicators within the ACS to answer:
-1. How is indoor plumbing insecurity spatially distributed across US counties in 2022 and 2023?
-2. What are the significant county-level changes in plumbing insecurity between these years? 
-3. How do these county-level rates compare to the national average for plumbing access?
+Effective water management and policymaking need to understand the intricate relationship between socio-economic factors and water supplies. Annually updated, the U.S. Census Bureau's American Community Survey (ACS) provides demographic, social, economic, and housing data. The `water_insecurity_2022` and `water_insecurity_2023 datasets` used in this study are compiled from relevant indicators within the ACS to answer: 1. How is indoor plumbing insecurity spatially distributed across US counties in 2022 and 2023? 2. What are the significant county-level changes in plumbing insecurity between these years? 3. How do these county-level rates compare to the national average for plumbing access?
 
 ## Methodology
 
@@ -160,7 +157,8 @@ p1<-ggplot(data = filter(water_insecurity_filtered, year == 2022)) +
   geom_sf(data = states_us, fill = NA, color = "red", size = 0.3) +
   scale_fill_viridis_c(option = "plasma", na.value = "grey80", name = "% Lacking Plumbing") +
   labs(
-    title = "Percent of Households Lacking Plumbing Facilities by USA County (2022)",
+    title = expression(atop("Percent of Households Lacking Plumbing Facilities",
+                            "by USA County (2022)")),
     caption = "Source: ACS 1-year Estimates"
   ) +
   theme_minimal()
@@ -177,14 +175,15 @@ p2<-ggplot(data = filter(water_insecurity_filtered, year == 2023)) +
   geom_sf(data = counties_sf, fill = NA, color = "black", size = 0.01) +
   geom_sf(data = states_us, fill = NA, color = "red", size = 0.3) +
   labs(
-    title = "Percent of Households Lacking Plumbing Facilities by USA County (2023)",
+    title =expression(atop("Percent of Households Lacking Plumbing Facilities",
+                            "by USA County (2023)")),
     caption = "Source: ACS 1-year Estimates"
   ) +
   theme_minimal()
 print(p2)
 ```
 
-```{r echo=FALSE, warning=FALSE, message=FALSE}
+```{r echo=FALSE, warning=FALSE, message=FALSE,fig.width=8, fig.height=6}
 #| label: fig-3
 #| fig-cap: "Change in Plumbing Insecurity by County"
 #| fig-pos: "H"
@@ -245,7 +244,8 @@ ggplot(water_insecurity_2022_filtered) +
   geom_sf(data = counties_sf, fill = NA, color = "black", size = 0.01) +
   geom_sf(data = states_us, fill = NA, color = "red", size = 0.3) +
   labs(
-    title = "Differences in the proportion of regions lacking indoor plumbing relative to the USA average",
+    title =expression(atop( "Differences in the proportion of regions lacking",
+    "indoor plumbing relative to the USA average")),
     subtitle = paste("USA mean:", round(mean_2022, 2), "%"),
     fill = "difference in value(%)"
   ) +
@@ -276,7 +276,8 @@ ggplot(water_insecurity_2023_filtered) +
   geom_sf(data = counties_sf, fill = NA, color = "black", size = 0.01) +
   geom_sf(data = states_us, fill = NA, color = "red", size = 0.3) +
   labs(
-    title = "Differences in the proportion of regions lacking indoor plumbing relative to the USA average",
+    title = expression(atop( "Differences in the proportion of regions lacking",
+    "indoor plumbing relative to the USA average")),
     subtitle = paste("USA mean:", round(mean_2023, 2), "%"),
     fill = "difference in value(%)"
   ) +

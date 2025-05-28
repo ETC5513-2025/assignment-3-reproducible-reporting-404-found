@@ -22,7 +22,7 @@
 \usepackage{lmodern}
 \ifPDFTeX\else  
     % xetex/luatex font selection
-    \setmainfont[]{Arial}
+  \setmainfont[]{Arial}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -44,28 +44,14 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 % Make \paragraph and \subparagraph free-standing
-\makeatletter
 \ifx\paragraph\undefined\else
   \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}{
-    \@ifstar
-      \xxxParagraphStar
-      \xxxParagraphNoStar
-  }
-  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
-  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
 \fi
 \ifx\subparagraph\undefined\else
   \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}{
-    \@ifstar
-      \xxxSubParagraphStar
-      \xxxSubParagraphNoStar
-  }
-  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
-  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
-\makeatother
 
 
 \providecommand{\tightlist}{%
@@ -109,6 +95,10 @@
 \usepackage{xcolor}
 \KOMAoption{captions}{tableheading}
 \makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
 \ifdefined\contentsname
@@ -144,17 +134,23 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \makeatother
 \makeatletter
-\makeatother
-\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
-
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\usepackage{bookmark}
-
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
@@ -167,39 +163,48 @@
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
-
 \title{Water Insecurity}
 \author{Xinran Yang, Parth Tendulkar, Bagas Ari Wibawanto (Group: 404
 Found)}
-\date{}
+\date{2025-05-28}
 
 \begin{document}
 \maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, breakable, interior hidden, enhanced, boxrule=0pt, borderline west={3pt}{0pt}{shadecolor}, sharp corners]}{\end{tcolorbox}}\fi
 
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\hypertarget{executive-summary}{%
+\subsection{Executive Summary}\label{executive-summary}}
 
-\subsection{Executive Summary}\label{executive-summary}
+Analysis of water insecurity data enables the production of insightful
+maps of water resources and infrastructure nationwide in the US. These
+maps show socio-economic elements like housing and indoor plumbing that
+affect water use and needs. We integrate ACS data to help water resource
+managers and policymakers identify vulnerable people and infrastructural
+needs.
 
-The water insecurity data helps our team produce insightful maps of
-water resources and infrastructure nationwide in the US. These maps show
-socio-economic elements like housing and indoor plumbing that affect
-water use and needs. We integrate ACS data to help water resource
-managers and policymakers. This method would help identify vulnerable
-people and infrastructural needs.
-
-\subsection{Introduction}\label{introduction}
+\hypertarget{introduction}{%
+\subsection{Introduction}\label{introduction}}
 
 Effective water management and policymaking need to understand the
 intricate relationship between socio-economic factors and water
 supplies. Annually updated, the U.S. Census Bureau's American Community
 Survey (ACS) provides demographic, social, economic, and housing data.
-In the next sections, we will explain how to use this data and offer
-water infrastructure and accessibility findings, such as showing how
-home infrastructure age, indoor plumbing prevalence, and household
-income affect water accessibility and affordability. This report will
-show how mapped ACS data can inform targeted actions and strategic
-planning for sustainable water resource management and infrastructure.
+The \texttt{water\_insecurity\_2022} and
+\texttt{water\_insecurity\_2023\ datasets} used in this study are
+compiled from relevant indicators within the ACS to answer: 1. How is
+indoor plumbing insecurity spatially distributed across US counties in
+2022 and 2023? 2. What are the significant county-level changes in
+plumbing insecurity between these years? 3. How do these county-level
+rates compare to the national average for plumbing access?
 
-\subsection{Methodology}\label{methodology}
+\hypertarget{methodology}{%
+\subsection{Methodology}\label{methodology}}
 
 This report explores the spatial and temporal variation in USA water
 insecurity levels utilizing the \texttt{water\_insecurity\_2022} and
@@ -237,82 +242,71 @@ socioeconomic context. (Figure~\ref{fig-6})
 
 \begin{figure}[H]
 
-\centering{
-
-\includegraphics{report_files/figure-pdf/fig-1-1.pdf}
+{\centering \includegraphics{report_files/figure-pdf/fig-1-1.pdf}
 
 }
 
 \caption{\label{fig-1}Percent of Households Lacking Plumbing Facilities
 by USA County (2022)}
 
-\end{figure}%
+\end{figure}
 
 \begin{figure}[H]
 
-\centering{
-
-\includegraphics{report_files/figure-pdf/fig-2-1.pdf}
+{\centering \includegraphics{report_files/figure-pdf/fig-2-1.pdf}
 
 }
 
 \caption{\label{fig-2}Percent of Households Lacking Plumbing Facilities
 by USA County (2023)}
 
-\end{figure}%
+\end{figure}
 
 \begin{figure}[H]
 
-\centering{
-
-\includegraphics{report_files/figure-pdf/fig-3-1.pdf}
+{\centering \includegraphics{report_files/figure-pdf/fig-3-1.pdf}
 
 }
 
 \caption{\label{fig-3}Change in Plumbing Insecurity by County}
 
-\end{figure}%
+\end{figure}
 
 \begin{figure}[H]
 
-\centering{
-
-\includegraphics{report_files/figure-pdf/fig-4-1.pdf}
+{\centering \includegraphics{report_files/figure-pdf/fig-4-1.pdf}
 
 }
 
 \caption{\label{fig-4}Differences in the proportion of regions lacking
 indoor plumbing relative to the USA average(2022)}
 
-\end{figure}%
+\end{figure}
 
 \begin{figure}[H]
 
-\centering{
-
-\includegraphics{report_files/figure-pdf/fig-5-1.pdf}
+{\centering \includegraphics{report_files/figure-pdf/fig-5-1.pdf}
 
 }
 
 \caption{\label{fig-5}Differences in the proportion of regions lacking
 indoor plumbing relative to the USA average(2023)}
 
-\end{figure}%
+\end{figure}
 
 \begin{figure}[H]
 
-\centering{
-
-\includegraphics{report_files/figure-pdf/fig-6-1.pdf}
+{\centering \includegraphics{report_files/figure-pdf/fig-6-1.pdf}
 
 }
 
 \caption{\label{fig-6}Top 10 Counties with Largest Change in Lacking
 Plumbing(\%)}
 
-\end{figure}%
+\end{figure}
 
-\subsection{Results}\label{results}
+\hypertarget{results}{%
+\subsection{Results}\label{results}}
 
 Based on Figure~\ref{fig-3}, it can be concluded that the majority of
 Change in Plumbing Insecurity is concentrated in the western United
@@ -336,11 +330,12 @@ The top 10 counties with the highest percentage of households lacking
 plumbing as well as the greatest change in 2022-2023 are shown through
 Figure~\ref{fig-6}.
 
+\hypertarget{discussion-conclusion-and-recommendations}{%
 \subsection{Discussion, conclusion and
-recommendations}\label{discussion-conclusion-and-recommendations}
+recommendations}\label{discussion-conclusion-and-recommendations}}
 
-\subsection{Reference section}\label{reference-section}
-
+\hypertarget{reference-section}{%
+\subsection{Reference section}\label{reference-section}}
 
 
 
