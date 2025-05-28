@@ -55,7 +55,7 @@ water_insecurity_2023 <- water_insecurity_2023 |>
 
 ```
 
-```{r echo=FALSE, warning=FALSE, message=FALSE}
+```{r echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
   
 library(tidycensus)
 library(sf) 
