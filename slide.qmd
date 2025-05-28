@@ -17,41 +17,46 @@ format:
 -   **Introduction :** Effective water management and policymaking need to understand the intricate relationship between socio-economic factors and water supplies. Annually updated, the U.S. Census Bureau's American Community Survey (ACS) provides demographic, social, economic, and housing data. The `water_insecurity_2022` and `water_insecurity_2023 datasets` used in this study are compiled from relevant indicators within the ACS to answer:
 
 1.  How is indoor plumbing insecurity spatially distributed across US counties in 2022 and 2023?
+
 2.  What are the significant county-level changes in plumbing insecurity between these years?
+
 3.  How do these county-level rates compare to the national average for plumbing access?
+
+------------------------------------------------------------------------
+
+## Dataset Description
+
+The dataset `water_insecurity_2022` and `water_insecurity_2023` is the US county-level water insecurity data for 2022 and 2023. They come from the `TidyTuesday` project and are usually collated based on publicly available data such as the American Community Survey (ACS).
+
+A two-year dataset was used to compare infrastructure improvements over time, in order to analyse the spatial distribution of the lack of pipeline facilities and thus the areas of need for focus.
 
 ------------------------------------------------------------------------
 
 ## Methodology and Results {.smaller}
 
--   **Methodology :**
-
-    This report examines spatial and temporal variations in USA water insecurity using the 2022 and 2023 water_insecurity data sets.The report maps the spatial distribution of water resource insecurity for each year separately, focusing on differences in indoor plumbing availability between counties in the western and eastern United States Changes in plumbing insecurity were analysed by mapping changes at the county level from 2022 to 2023. Each county's plumbing condition was compared to the national average to identify areas with higher or lower levels of insecurity, and maps were used to visualize regional differences and deviations. In addition, a comparative bar chart analysis of the top 10 counties with the greatest changes revealed different local trends.
+-   **Methodology :** This report examines spatial and temporal variations in USA water insecurity using the 2022 and 2023 water_insecurity data sets.The report maps the spatial distribution of water resource insecurity for each year separately, focusing on differences in indoor plumbing availability between counties in the western and eastern United States Changes in plumbing insecurity were analysed by mapping changes at the county level from 2022 to 2023. Each county's plumbing condition was compared to the national average to identify areas with higher or lower levels of insecurity, and maps were used to visualize regional differences and deviations. In addition, a comparative bar chart analysis of the top 10 counties with the greatest changes revealed different local trends.
 
 ------------------------------------------------------------------------
 
 ## Results
 
-<img src="images/clipboard-934263326.png" style="border: 2px solid black; width:80%; display: block; margin-left: auto; margin-right: auto;" />
-
-<small> The map illustrates county-level changes in plumbing insecurity across the U.S. between 2022 and 2023. Most counties saw minimal change, while select areas in the Southwest experienced notable improvements (purple) or worsening (red) in plumbing access. Counties with missing or unchanged data appear in white. </small>
-
-------------------------------------------------------------------------
-
-<img src="images/clipboard-560776438.png" style="border: 2px solid black; width:80%; display: block; margin-left: auto; margin-right: auto;" />
+<img src="images/clipboard-560776438.png" style="border: 2px solid black; width:80%; display: block; margin-left: auto; margin-right: auto;"/>
 
 <small> This map shows the difference in the percentage of people lacking indoor plumbing in each county compared to the 2022 U.S. average (0.1%). Most counties highlighted in red exceed the national average, indicating higher plumbing insecurity. A few counties in the Southwest (shaded in pink and purple) show extreme disparities, with values more than 2–3% above the national average. </small>
 
-
 ------------------------------------------------------------------------
 
-<img src="images/clipboard-2990059093.png" style="border: 2px solid black; width:80%; display: block; margin-left: auto; margin-right: auto;" />
+<img src="images/clipboard-2990059093.png" style="border: 2px solid black; width:80%; display: block; margin-left: auto; margin-right: auto;"/>
 
 <small> This map displays the percentage of people lacking indoor plumbing in 2023, relative to the national average (0.1%). Counties shaded in red exceed the average, while the deepest disparities (above 2–3%) are seen in some counties of Arizona and New Mexico. Many areas across the Southeast and Northeast also continue to show above-average plumbing insecurity. </small>
 
 ------------------------------------------------------------------------
 
-<img src="images/clipboard-2719483658.png" style="border: 2px solid black; width:80%; display: block; margin-left: auto; margin-right: auto;" />
+<img src="images/clipboard-886922139.png" style="border: 2px solid black; width:80%; display: block; margin-left: auto; margin-right: auto;"/>
+
+<small> This bar chart illustrates the top 10 counties with the largest percentage change in Lacking Plumbing between 2022 and 2023. This chart visualises that some counties have achieved significant progress in improving their plumbing infrastructure (e.g. McKinley County), while others may face challenges in 2023 that result in an increase in the percentage of the population lacking plumbing facilities (e.g. Greenwood County).</small>
+
+------------------------------------------------------------------------
 
 ## Conclusion and Recommendations
 
@@ -60,7 +65,8 @@ format:
 <small>Plumbing insecurity continues to be a problem in many parts of the U.S., and in some areas, it's actually getting worse. While a lot of counties stayed close to the national average (0.1%), certain regions, especially in the Southwest, South, and Northeast had much higher rates of households without proper plumbing. Comparing 2022 to 2023, some of the counties already struggling saw even bigger increases, pointing to growing gaps in basic infrastructure.</small>
 
 #### Recommendations
--  <small> **Invest in Infrastructure:** Focus government funding on counties that are struggling the most, especially places like Arizona, New Mexico, Texas, and Alaska—so they can improve basic plumbing systems.</small>\
--  <small> **Understand Local Needs:** Run local surveys in areas where the problem is getting worse. This can help figure out what's really causing it—like poor housing conditions or changes in population.</small>\
+
+-   <small> **Invest in Infrastructure:** Focus government funding on counties that are struggling the most, especially places like Arizona, New Mexico, Texas, and Alaska—so they can improve basic plumbing systems.</small>\
+-   <small> **Understand Local Needs:** Run local surveys in areas where the problem is getting worse. This can help figure out what's really causing it—like poor housing conditions or changes in population.</small>\
 -   <small>**Support Through Policy:** Give financial help, like grants or tax breaks, to encourage people and landlords to fix or upgrade plumbing in low-income communities.</small>\
 -   <small>**Include in Health Planning:** Make sure plumbing access is considered when making public health or housing plans, so it gets the attention and support it needs.</small>\

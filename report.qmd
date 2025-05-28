@@ -37,7 +37,8 @@ library(dplyr)
 library(tidyr)
 library(purrr)
 library(readr)
-library(sf)        
+library(sf)  
+library(sf)
 library(ggplot2)
 library(patchwork) 
 library(kableExtra)
@@ -59,13 +60,13 @@ water_insecurity_2023 <- water_insecurity_2023 |>
 ```
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
-  
+
 library(tidycensus)
 library(sf) 
 library(janitor) 
 library(tidyverse)
 library(tigris)
-
+renv::snapshot()
 states_us <- tigris::states(cb = TRUE, year = 2023) %>%
   filter(!STATEFP %in% c("02", "15", "60", "66", "69", "72", "78")) %>%
   st_transform(4326)
@@ -290,29 +291,23 @@ ggplot(water_insecurity_2023_filtered) +
 #| fig-width: 10
 #| fig-height: 8
 #| fig-pos: "H"
-water_compare_long <- water_compare %>%
-  select(geoid, name, percent_lacking_plumbing_2022, percent_lacking_plumbing_2023) %>%
-  pivot_longer(
-    cols = starts_with("percent_lacking_plumbing_"),
-    names_to = "year",
-    names_prefix = "percent_lacking_plumbing_",
-    values_to = "percent_lacking_plumbing"
-  ) %>%
-  mutate(year = as.character(year)) 
-top10 <- water_compare %>%
-  arrange(desc(abs_change)) %>%
+top10 <- water_insecurity_filtered %>%
+  group_by(geoid) %>%
+  summarize(change = max(percent_lacking_plumbing) - min(percent_lacking_plumbing)) %>%
+  arrange(desc(abs(change))) %>%
   slice_head(n = 10) %>%
   pull(geoid)
 
-water_compare_long_top10 <- water_compare_long %>%
+
+water_compare_long_top10 <- water_insecurity_filtered %>%
   filter(geoid %in% top10)
 
 ggplot(water_compare_long_top10, aes(x = reorder(name, -percent_lacking_plumbing), 
-                                     y = percent_lacking_plumbing, 
-                                     fill = year)) +
+                                    y = percent_lacking_plumbing, 
+                                    fill = factor(year))) +
   geom_col(position = "dodge") +
   labs(
-    title = "Top 10 Counties with Largest Change in Lacking Plumbing(%)",
+    title = "Top 10 Counties with Largest Change in Lacking Plumbing (%)",
     x = "County",
     y = "Percent Lacking Plumbing (%)",
     fill = "Year"
@@ -322,6 +317,7 @@ ggplot(water_compare_long_top10, aes(x = reorder(name, -percent_lacking_plumbing
     axis.text.x = element_text(angle = 60, hjust = 1, size = 8),
     plot.title = element_text(hjust = 0.5, face = "bold")
   )
+
 ```
 
 ## Results
