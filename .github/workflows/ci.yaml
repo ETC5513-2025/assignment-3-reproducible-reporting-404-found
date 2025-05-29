@@ -30,4 +30,4 @@ jobs:
           Rscript -e 'renv::restore()'
 
       - name: Run your script
-        run: Rscript report.R
+        run: Rscript report.qmd
