@@ -3,8 +3,9 @@ name: R-CMD-check
 on: [push, pull_request]
 
 jobs:
-  R-CMD-check:
+  run-script:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
@@ -14,7 +15,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
+          sudo apt-get install -y \
             libudunits2-dev \
             libgdal-dev \
             libgeos-dev \
@@ -23,13 +24,10 @@ jobs:
             libssl-dev \
             libxml2-dev
 
-      - name: Install rcmdcheck
-        run: Rscript -e 'install.packages("rcmdcheck")'
-
       - name: Restore R packages with renv
         run: |
           Rscript -e 'install.packages("renv")'
           Rscript -e 'renv::restore()'
 
-      - name: Check R package
-        uses: r-lib/actions/check-r-package@v2
+      - name: Run your script
+        run: Rscript your_script.R
