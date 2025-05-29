@@ -23,6 +23,9 @@ jobs:
             libssl-dev \
             libxml2-dev
 
+      - name: Install rcmdcheck
+        run: Rscript -e 'install.packages("rcmdcheck")'
+
       - name: Restore R packages with renv
         run: |
           Rscript -e 'install.packages("renv")'
