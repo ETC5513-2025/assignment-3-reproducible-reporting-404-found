@@ -33,6 +33,7 @@ We compare each of the counties to the national average so that we can see wheth
 This Comparative analysis of county-level 2022-2023 data on the percentage of counties lacking piped facilities across the U.S. using bar charts reveals that the top 10 counties with the largest changes show a clear trend of differentiation. This reflects the dramatic localized changes in county-level water supply infrastructure across the United States. Such changes may be influenced by regional differences in economic development, infrastructure investment priorities, and socioeconomic context. (@fig-6)
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(units)
 library(dplyr)
 library(tidyr)
 library(purrr)
