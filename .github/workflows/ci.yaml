@@ -32,12 +32,12 @@ jobs:
       - name: Install TinyTeX
         run: |
           Rscript -e 'install.packages("tinytex")'
-          Rscript -e 'tinytex::install_tinytex()'
+          Rscript -e 'tinytex::install_tinytex(repository = "illinois")'
 
       - name: Add TinyTeX to PATH
         run: echo "$HOME/.TinyTeX/bin/x86_64-linux" >> $GITHUB_PATH
 
-      - name: Check tlmgr version
+      - name: Verify tlmgr
         run: tlmgr --version
 
       - name: Install LaTeX packages
