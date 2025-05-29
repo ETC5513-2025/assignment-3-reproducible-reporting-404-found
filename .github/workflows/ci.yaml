@@ -7,8 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
@@ -17,34 +16,30 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            libudunits2-dev \
-            libgdal-dev \
-            libgeos-dev \
-            libproj-dev \
             libcurl4-openssl-dev \
             libssl-dev \
             libxml2-dev \
-            pandoc
+            libudunits2-dev \
+            libgdal-dev \
+            libgeos-dev \
+            libproj-dev
 
       - name: Restore R packages with renv
         run: |
           Rscript -e 'install.packages("renv")'
           Rscript -e 'renv::restore()'
 
-      - name: Install Quarto CLI
-        uses: quarto-dev/quarto-actions/setup@v2
-
-      - name: Install TinyTeX (LaTeX) for PDF rendering
+      - name: Install TinyTeX for PDF rendering
         run: |
           Rscript -e 'install.packages("tinytex")'
           Rscript -e 'tinytex::install_tinytex()'
+
+      - name: Install missing LaTeX packages
+        run: |
+          tlmgr install koma-script
 
       - name: Render Quarto document to PDF
         run: |
           quarto render report.qmd
 
-      - name: Upload PDF artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: rendered-pdf
-          path: report.pdf
+  
