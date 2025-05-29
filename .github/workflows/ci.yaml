@@ -44,7 +44,7 @@ jobs:
         run: tlmgr install koma-script
 
       - name: Install Quarto CLI
-        uses: quarto-dev/quarto-cli@v2
+        uses: quarto-dev/quarto-cli@v1
 
       - name: Render report.qmd to PDF
         run: quarto render report.qmd --to pdf
