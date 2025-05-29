@@ -20,3 +20,16 @@ jobs:
 
       - name: Run your script or tests
         run: Rscript your_script.R
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libudunits2-dev \
+            libgdal-dev \
+            libgeos-dev \
+            libproj-dev \
+            libcurl4-openssl-dev \
+            libssl-dev \
+            libxml2-dev  
+      - name: Check package
+        uses: r-lib/actions/check-r-package@v2
