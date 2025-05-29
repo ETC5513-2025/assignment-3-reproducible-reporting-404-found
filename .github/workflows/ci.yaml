@@ -5,31 +5,28 @@ on: [push, pull_request]
 jobs:
   R-CMD-check:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
 
       - name: Install system dependencies
-        run: sudo apt-get update && sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev
-
-      - name: Restore packages with renv
-        run: Rscript -e 'install.packages("renv"); renv::restore()'
-
-      - name: Run your script or tests
-        run: Rscript your_script.R
-      - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
+          sudo apt-get install -y --no-install-recommends \
             libudunits2-dev \
             libgdal-dev \
             libgeos-dev \
             libproj-dev \
             libcurl4-openssl-dev \
             libssl-dev \
-            libxml2-dev  
-      - name: Check package
+            libxml2-dev
+
+      - name: Restore R packages with renv
+        run: |
+          Rscript -e 'install.packages("renv")'
+          Rscript -e 'renv::restore()'
+
+      - name: Check R package
         uses: r-lib/actions/check-r-package@v2
