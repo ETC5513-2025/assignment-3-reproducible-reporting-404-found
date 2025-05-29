@@ -3,7 +3,7 @@ name: R-CMD-check
 on: [push, pull_request]
 
 jobs:
-  run-script:
+  render:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,12 +22,17 @@ jobs:
             libproj-dev \
             libcurl4-openssl-dev \
             libssl-dev \
-            libxml2-dev
+            libxml2-dev \
+            pandoc
 
       - name: Restore R packages with renv
         run: |
           Rscript -e 'install.packages("renv")'
           Rscript -e 'renv::restore()'
 
-      - name: Run your script
-        run: Rscript your_script.R
+      - name: Install quarto CLI
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render Quarto document
+        run: |
+          quarto render report.qmd
