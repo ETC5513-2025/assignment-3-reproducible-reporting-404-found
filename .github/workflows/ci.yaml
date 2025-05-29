@@ -1,18 +1,14 @@
-name: R-CMD-check-and-Quarto-PDF
+name: R-Script-run
 
-on:
-  push:
-  pull_request:
+on: [push, pull_request]
 
 jobs:
-  build:
+  run-script:
     runs-on: ubuntu-latest
 
     steps:
-     
       - uses: actions/checkout@v3
 
-     
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
 
@@ -20,40 +16,18 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            libcurl4-openssl-dev \
-            libssl-dev \
-            libxml2-dev \
             libudunits2-dev \
             libgdal-dev \
             libgeos-dev \
-            libproj-dev
+            libproj-dev \
+            libcurl4-openssl-dev \
+            libssl-dev \
+            libxml2-dev
 
- 
       - name: Restore R packages with renv
         run: |
-          Rscript -e 'install.packages("renv", repos="https://cloud.r-project.org")'
+          Rscript -e 'install.packages("renv")'
           Rscript -e 'renv::restore()'
 
-
-      - name: Install TinyTeX
-        run: |
-          Rscript -e 'install.packages("tinytex", repos="https://cloud.r-project.org")'
-          Rscript -e 'tinytex::install_tinytex()'
-
-  
-      - name: Add TinyTeX to PATH
-        run: echo "$HOME/.TinyTeX/bin/x86_64-linux" >> $GITHUB_PATH
-
-      
-      - name: Update tlmgr and install koma-script
-        run: |
-          tlmgr update --self
-          tlmgr install koma-script
-
- 
-      - name: Install Quarto CLI
-        uses: quarto-dev/quarto-actions/setup-quarto@v1
-
-   
-      - name: Render report.qmd to PDF
-        run: quarto render report.qmd --to pdf
+      - name: Run your script
+        run: Rscript report.R
