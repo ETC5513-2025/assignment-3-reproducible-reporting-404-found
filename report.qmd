@@ -3,7 +3,7 @@ title: "Water Insecurity"
 format:
   pdf: 
     pdf-engine: xelatex
-    mainfont: "Arial"
+    mainfont: "DejaVu Sans"
     keep-tex: true
     toc: true
     toc-depth: 2
