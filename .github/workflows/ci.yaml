@@ -29,5 +29,19 @@ jobs:
           Rscript -e 'install.packages("renv")'
           Rscript -e 'renv::restore()'
 
-      - name: Run your script
-        run: Rscript report.qmd
+      - name: Install TinyTeX
+        run: |
+          Rscript -e 'install.packages("tinytex")'
+          Rscript -e 'tinytex::install_tinytex()'
+
+      - name: Add TinyTeX to PATH
+        run: echo "$HOME/.TinyTeX/bin/x86_64-linux" >> $GITHUB_PATH
+
+      - name: Install LaTeX packages
+        run: tlmgr install koma-script
+
+      - name: Setup Quarto CLI
+        uses: quarto-dev/quarto-actions/setup-quarto@v1
+
+      - name: Render report.qmd to PDF
+        run: quarto render report.qmd --to pdf
