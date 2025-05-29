@@ -3,7 +3,7 @@ name: R-CMD-check
 on: [push, pull_request]
 
 jobs:
-  render:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,17 +29,22 @@ jobs:
           Rscript -e 'install.packages("renv")'
           Rscript -e 'renv::restore()'
 
-      - name: Install TinyTeX for PDF rendering
+      - name: Install TinyTeX
         run: |
           Rscript -e 'install.packages("tinytex")'
           Rscript -e 'tinytex::install_tinytex()'
 
-      - name: Install missing LaTeX packages
-        run: |
-          tlmgr install koma-script
+      - name: Add TinyTeX to PATH
+        run: echo "$HOME/.TinyTeX/bin/x86_64-linux" >> $GITHUB_PATH
 
-      - name: Render Quarto document to PDF
-        run: |
-          quarto render report.qmd
+      - name: Check tlmgr version
+        run: tlmgr --version
 
-  
+      - name: Install LaTeX packages
+        run: tlmgr install koma-script
+
+      - name: Install Quarto CLI
+        uses: quarto-dev/quarto-actions/setup-quarto@v2
+
+      - name: Render report.qmd to PDF
+        run: quarto render report.qmd --to pdf
