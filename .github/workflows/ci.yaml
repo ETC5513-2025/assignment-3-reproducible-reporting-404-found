@@ -24,6 +24,11 @@ jobs:
             libssl-dev \
             libxml2-dev
 
+      - name: Install system dependencies for systemfonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libfontconfig1-dev libfreetype6-dev pkg-config
+
       - name: Restore R packages with renv
         run: |
           Rscript -e 'install.packages("renv")'
