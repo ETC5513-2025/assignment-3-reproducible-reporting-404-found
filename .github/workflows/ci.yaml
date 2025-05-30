@@ -24,19 +24,16 @@ jobs:
             libssl-dev \
             libxml2-dev
 
-      - name: Install system dependencies for systemfonts
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libfontconfig1-dev libfreetype6-dev pkg-config
-      - name: Install system libraries for textshaping
+      - name: Install system dependencies for systemfonts + textshaping + Arial
         run: |
           sudo apt-get update
           sudo apt-get install -y \
+          libfontconfig1-dev \
+          libfreetype6-dev \
           libharfbuzz-dev \
           libfribidi-dev \
-          libfreetype6-dev \
-          libfontconfig1-dev \
-          pkg-config
+          pkg-config \
+          ttf-mscorefonts-installer
 
       - name: Restore R packages with renv
         run: |
