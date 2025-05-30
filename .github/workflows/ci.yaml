@@ -28,6 +28,15 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libfontconfig1-dev libfreetype6-dev pkg-config
+      - name: Install system libraries for textshaping
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+          libharfbuzz-dev \
+          libfribidi-dev \
+          libfreetype6-dev \
+          libfontconfig1-dev \
+          pkg-config
 
       - name: Restore R packages with renv
         run: |
