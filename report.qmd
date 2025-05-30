@@ -360,3 +360,11 @@ The findings of this report underscore a continuing inequality in access to basi
 -   **Support Through Policy:** Give financial help, like grants or tax breaks, to encourage people and landlords to fix or upgrade plumbing in low-income communities.
 -   **Include in Health Planning:** Make sure plumbing access is considered when making public health or housing plans, so it gets the attention and support it needs.
 End of Report
+
+## References
+
+-   Deitz, S., & Meehan, K. (2019). Plumbing poverty: Mapping hot spots of racial and geographic inequality in U.S. household
+water insecurity. *Annals of the American Association of Geographers*, 109(4), 1092–1109. https://doi.org/10.1080/24694452.2018.1530587
+
+-   Jepson, W., & Vandewalle, E. (2016). Household water insecurity in the Global North: A study of rural and periurban Texas. *Water Security*, 2, 1–12. https://doi.org/10.1016/j.wasec.2016.10.001
+
