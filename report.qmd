@@ -32,47 +32,56 @@ We compare each of the counties to the national average so that we can see wheth
 
 This Comparative analysis of county-level 2022-2023 data on the percentage of counties lacking piped facilities across the U.S. using bar charts reveals that the top 10 counties with the largest changes show a clear trend of differentiation. This reflects the dramatic localized changes in county-level water supply infrastructure across the United States. Such changes may be influenced by regional differences in economic development, infrastructure investment priorities, and socioeconomic context. (@fig-6)
 
-```{r echo=FALSE, warning=FALSE, message=FALSE}
+```{r Libraries, echo=FALSE, warning=FALSE, message=FALSE}
 library(dplyr)
 library(tidyr)
 library(purrr)
 library(readr)
-library(sf)  
-library(sf)
 library(ggplot2)
 library(patchwork) 
 library(kableExtra)
-water_insecurity_2022 <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-28/water_insecurity_2022.csv')
-water_insecurity_2023 <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-28/water_insecurity_2023.csv')
+library(janitor) 
+library(tidyverse)
+library(tigris)
+library(sf)
+library(tidycensus)
+
+```
+
+```{r Load in data, echo=FALSE, warning=FALSE, message=FALSE}
+
+water_insecurity_2022 <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-28/water_insecurity_2022.csv')
+
+water_insecurity_2023 <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-28/water_insecurity_2023.csv')
+
+
 water_insecurity_2022 <- water_insecurity_2022 |> 
-  dplyr::mutate(
-    geometry = purrr::map(geometry, \(geo) {
+  mutate(
+    geometry = map(geometry, \(geo) {
       eval(parse(text = geo))
     } )
   )
 water_insecurity_2023 <- water_insecurity_2023 |> 
-  dplyr::mutate(
-    geometry = purrr::map(geometry, \(geo) {
+  mutate(
+    geometry = map(geometry, \(geo) {
       eval(parse(text = geo))
     } )
   )
 
-```
-
-```{r echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
-
-library(tidycensus)
-library(sf) 
-library(janitor) 
-library(tidyverse)
-library(tigris)
-renv::snapshot()
-states_us <- tigris::states(cb = TRUE, year = 2023) %>%
+#US state borders (filtered to only include continental US)
+states_us <- states(cb = TRUE, year = 2023) %>%
   filter(!STATEFP %in% c("02", "15", "60", "66", "69", "72", "78")) %>%
   st_transform(4326)
 
+#US county borders (filtered to only include continental US)
 counties_sf <- counties(cb = TRUE, year = 2023)
 counties_sf <- counties_sf[!counties_sf$STATEFP %in% c("02", "15", "60", "66", "69", "72", "78"), ]
+
+```
+
+```{r data exploration, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+
+
 
 get_census_data <- function(geography, var_names, year, proj, survey_var) {
   df <- get_acs(
@@ -91,7 +100,7 @@ get_census_data <- function(geography, var_names, year, proj, survey_var) {
 # Grab relevant variables - B01003_001: total population, B25049_004: households lacking plumbing----
 vars <- c("B01003_001", "B25049_004")
 
-# Pull data for 2023 and 2022 for all US counties ------
+# Pull data for 2023 and 2022 for all US counties
 water_insecurity_2023 <- get_census_data(
   geography = 'county', 
   var_names = vars, 
@@ -139,10 +148,11 @@ water_insecurity_2022 <- get_census_data(
   )
 ```
 
-```{r echo=FALSE, warning=FALSE, message=FALSE}
+```{r visualisation 1, echo=FALSE, warning=FALSE, message=FALSE}
 #| label: fig-1
 #| fig-cap: "Percent of Households Lacking Plumbing Facilities by USA County (2022)"
 #| fig-pos: "H"
+
 water_insecurity <- bind_rows(
   water_insecurity_2022,
   water_insecurity_2023
@@ -166,10 +176,11 @@ p1<-ggplot(data = filter(water_insecurity_filtered, year == 2022)) +
 print(p1)
 ```
 
-```{r echo=FALSE, warning=FALSE, message=FALSE}
+```{r visualisation 2, echo=FALSE, warning=FALSE, message=FALSE}
 #| label: fig-2
 #| fig-cap: "Percent of Households Lacking Plumbing Facilities by USA County (2023)"
 #| fig-pos: "H"
+
 p2<-ggplot(data = filter(water_insecurity_filtered, year == 2023)) +
   geom_sf(aes(fill = percent_lacking_plumbing), color = NA) +
   scale_fill_viridis_c(option = "plasma", na.value = "grey80", name = "% Lacking Plumbing") +
@@ -184,10 +195,11 @@ p2<-ggplot(data = filter(water_insecurity_filtered, year == 2023)) +
 print(p2)
 ```
 
-```{r echo=FALSE, warning=FALSE, message=FALSE,fig.width=8, fig.height=6}
+```{r visualisation 3, echo=FALSE, warning=FALSE, message=FALSE,fig.width=8, fig.height=6}
 #| label: fig-3
 #| fig-cap: "Change in Plumbing Insecurity by County"
 #| fig-pos: "H"
+
 water_compare <- water_insecurity_2022 %>% 
   select(geoid, name, percent_lacking_plumbing_2022 = percent_lacking_plumbing) %>% 
   inner_join(
@@ -222,10 +234,11 @@ ggplot(data = water_change_map_filtered) +
   theme_minimal()
 ```
 
-```{r echo=FALSE, warning=FALSE, message=FALSE}
+```{r visualisation 4, echo=FALSE, warning=FALSE, message=FALSE}
 #| label: fig-4
 #| fig-cap: "Differences in the proportion of regions lacking indoor plumbing relative to the USA average(2022)"
 #| fig-pos: "H"
+
 mean_2022 <- mean(water_insecurity_2022$percent_lacking_plumbing, na.rm = TRUE)
 
 water_insecurity_2022 <- water_insecurity_2022 |>
@@ -254,10 +267,11 @@ ggplot(water_insecurity_2022_filtered) +
 
 ```
 
-```{r echo=FALSE, warning=FALSE, message=FALSE}
+```{r visualisation 5, echo=FALSE, warning=FALSE, message=FALSE}
 #| label: fig-5
 #| fig-cap: "Differences in the proportion of regions lacking indoor plumbing relative to the USA average(2023)"
 #| fig-pos: "H"
+
 mean_2023 <- mean(water_insecurity_2023$percent_lacking_plumbing, na.rm = TRUE)
 water_insecurity_2023 <- water_insecurity_2023 |>
   dplyr::mutate(
@@ -285,12 +299,13 @@ ggplot(water_insecurity_2023_filtered) +
   theme_minimal()
 ```
 
-```{r echo=FALSE, warning=FALSE, message=FALSE}
+```{r visualisation 6, echo=FALSE, warning=FALSE, message=FALSE}
 #| label: fig-6
 #| fig-cap: "Top 10 Counties with Largest Change in Lacking Plumbing(%)"
 #| fig-width: 10
 #| fig-height: 8
 #| fig-pos: "H"
+
 top10 <- water_insecurity_filtered %>%
   group_by(geoid) %>%
   summarize(change = max(percent_lacking_plumbing) - min(percent_lacking_plumbing)) %>%
@@ -330,6 +345,12 @@ The majority of eastern counties show red (near 0%) or slightly higher values, i
 
 The top 10 counties with the highest percentage of households lacking plumbing as well as the greatest change in 2022-2023 are shown through @fig-6.
 
-## Discussion, conclusion and recommendations
+## Discussion
+
+
+
+## Recommendations
+
+
 
 End of Report
