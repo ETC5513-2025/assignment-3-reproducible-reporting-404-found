@@ -6,7 +6,7 @@ format:
     pdf-engine: xelatex
     include-before-body: style/title.tex
     include-in-header: style/preamble.tex
-    mainfont: "DejaVu Sans"
+    mainfont: "Arial"
     keep-tex: true
     toc: true
     toc-depth: 2
