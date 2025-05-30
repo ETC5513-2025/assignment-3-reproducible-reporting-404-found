@@ -349,5 +349,12 @@ The top 10 counties with the highest percentage of households lacking plumbing a
 
 This analysis highlights clear regional disparities in plumbing insecurity, with western U.S. counties showing consistently higher rates than those in the east. While a modest national improvement was observed between 2022 and 2023, many high-risk counties remained largely unchanged. These patterns align with previous research showing that rural and Indigenous communities face persistent challenges due to systemic underinvestment and infrastructural neglect (Deitz & Meehan, 2019). Additionally, water insecurity in high-income countries like the United States is often overlooked, yet it has real consequences for public health, well-being, and social equity (Jepson & Vandewalle, 2016). These findings point to the need for more targeted, long-term infrastructure planning that prioritizes vulnerable regions.
 
+## Conclusion
+
+The findings of this report underscore a continuing inequality in access to basic plumbing facilities across U.S. counties. Although minor improvements have occurred, systemic barriers remain for the most affected regions. Western counties, in particular, continue to lag behind the national average, highlighting a need for better-targeted policy and infrastructure funding. As noted by Deitz and Meehan (2019), such disparities are often tied to broader patterns of social and geographic inequality. Moreover, Jepson and Vandewalle (2016) emphasise that water insecurity is not limited to the Global South—it exists even in developed nations and must be treated as a serious public issue. Addressing these issues is essential to ensuring safe, reliable access to plumbing for all communities.
+
+## Recommendations
+
+
 
 End of Report
