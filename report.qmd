@@ -374,6 +374,6 @@ The findings of this report underscore a continuing inequality in access to basi
 
 # References
 
--   Deitz, S., & Meehan, K. (2019). Plumbing poverty: Mapping hot spots of racial and geographic inequality in U.S. household water insecurity. *Annals of the American Association of Geographers*, 109(4), 1092–1109. <https://doi.org/10.1080/24694452.2018.1530587>
+-   Deitz, S., & Meehan, K. (2019). Plumbing Poverty: Mapping Hot Spots of Racial and Geographic Inequality in U.S. Household Water Insecurity. Annals of the American Association of Geographers, 109(4), 1092–1109. <https://doi.org/10.1080/24694452.2018.1530587>
 
--   Jepson, W., & Vandewalle, E. (2016). Household water insecurity in the Global North: A study of rural and periurban Texas. *Water Security*, 2, 1–12. <https://doi.org/10.1016/j.wasec.2016.10.001>
+-   Wendy Jepson & Emily Vandewalle (2016) Household Water Insecurity in the Global North: A Study of Rural and Periurban Settlements on the Texas–Mexico Border, The Professional Geographer, 68:1, 66-81, DOI: 10.1080/00330124.2015.1028324. <http://dx.doi.org/10.1080/00330124.2015.1028324>
