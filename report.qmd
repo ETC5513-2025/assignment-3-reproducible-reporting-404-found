@@ -1,26 +1,32 @@
 ---
-title: "Water Insecurity"
+title: ""
 format:
   pdf: 
+    documentclass: scrartcl
     pdf-engine: xelatex
+    include-before-body: style/title.tex
+    include-in-header: style/preamble.tex
     mainfont: "Arial"
     keep-tex: true
     toc: true
     toc-depth: 2
 editor: visual
-author: "Xinran Yang, Parth Tendulkar, Bagas Ari Wibawanto (Group: 404 Found)"
-date: "today"
+author: ""
 ---
 
-## Executive Summary
+\newpage
+
+# Executive Summary
 
 Analysis of water insecurity data enables the production of insightful maps of water resources and infrastructure nationwide in the US. These maps show socio-economic elements like housing and indoor plumbing that affect water use and needs. We integrate ACS data to help water resource managers and policymakers identify vulnerable people and infrastructural needs.
 
-## Introduction
+# Introduction
 
 Effective water management and policymaking need to understand the intricate relationship between socio-economic factors and water supplies. Annually updated, the U.S. Census Bureau's American Community Survey (ACS) provides demographic, social, economic, and housing data. The `water_insecurity_2022` and `water_insecurity_2023 datasets` used in this study are compiled from relevant indicators within the ACS to answer: 1. How is indoor plumbing insecurity spatially distributed across US counties in 2022 and 2023? 2. What are the significant county-level changes in plumbing insecurity between these years? 3. How do these county-level rates compare to the national average for plumbing access?
 
-## Methodology
+\newpage
+
+# Methodology
 
 This report explores the spatial and temporal variation in USA water insecurity levels utilizing the `water_insecurity_2022` and `water_insecurity_2023` data sets.
 
@@ -48,7 +54,7 @@ library(tidycensus)
 
 ```
 
-```{r Load in data, echo=FALSE, warning=FALSE, message=FALSE}
+```{r Load in data, echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
 
 water_insecurity_2022 <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-28/water_insecurity_2022.csv')
 
@@ -172,7 +178,7 @@ p1<-ggplot(data = filter(water_insecurity_filtered, year == 2022)) +
                             "by USA County (2022)")),
     caption = "Source: ACS 1-year Estimates"
   ) +
-  theme_minimal()
+  theme_bw()
 print(p1)
 ```
 
@@ -191,7 +197,7 @@ p2<-ggplot(data = filter(water_insecurity_filtered, year == 2023)) +
                             "by USA County (2023)")),
     caption = "Source: ACS 1-year Estimates"
   ) +
-  theme_minimal()
+  theme_bw()
 print(p2)
 ```
 
@@ -231,7 +237,7 @@ ggplot(data = water_change_map_filtered) +
   geom_sf(data = counties_sf, fill = NA, color = "black", size = 0.01) +
   geom_sf(data = states_us, fill = NA, color = "red", size = 0.3) +
   labs(title = "Change in Plumbing Insecurity by County") +
-  theme_minimal()
+  theme_bw()
 ```
 
 ```{r visualisation 4, echo=FALSE, warning=FALSE, message=FALSE}
@@ -263,7 +269,7 @@ ggplot(water_insecurity_2022_filtered) +
     subtitle = paste("USA mean:", round(mean_2022, 2), "%"),
     fill = "difference in value(%)"
   ) +
-  theme_minimal()
+  theme_bw()
 
 ```
 
@@ -296,7 +302,7 @@ ggplot(water_insecurity_2023_filtered) +
     subtitle = paste("USA mean:", round(mean_2023, 2), "%"),
     fill = "difference in value(%)"
   ) +
-  theme_minimal()
+  theme_bw()
 ```
 
 ```{r visualisation 6, echo=FALSE, warning=FALSE, message=FALSE}
@@ -327,7 +333,7 @@ ggplot(water_compare_long_top10, aes(x = reorder(name, -percent_lacking_plumbing
     y = "Percent Lacking Plumbing (%)",
     fill = "Year"
   ) +
-  theme_minimal() +
+  theme_bw() +
   theme(
     axis.text.x = element_text(angle = 60, hjust = 1, size = 8),
     plot.title = element_text(hjust = 0.5, face = "bold")
@@ -335,7 +341,9 @@ ggplot(water_compare_long_top10, aes(x = reorder(name, -percent_lacking_plumbing
 
 ```
 
-## Results
+\newpage
+
+# Results
 
 Based on @fig-3, it can be concluded that the majority of Change in Plumbing Insecurity is concentrated in the western United States. Changes in the eastern U.S. are concentrated in only a scattering of counties.The situation in 2023 improves slightly compared to 2022, but high-risk counties are still concentrated, suggesting that local water security and infrastructure investments still need to be further strengthened.
 
@@ -345,26 +353,27 @@ The majority of eastern counties show red (near 0%) or slightly higher values, i
 
 The top 10 counties with the highest percentage of households lacking plumbing as well as the greatest change in 2022-2023 are shown through @fig-6.
 
-## Discussion
+# Discussion
 
 This analysis highlights clear regional disparities in plumbing insecurity, with western U.S. counties showing consistently higher rates than those in the east. While a modest national improvement was observed between 2022 and 2023, many high-risk counties remained largely unchanged. These patterns align with previous research showing that rural and Indigenous communities face persistent challenges due to systemic underinvestment and infrastructural neglect (Deitz & Meehan, 2019). Additionally, water insecurity in high-income countries like the United States is often overlooked, yet it has real consequences for public health, well-being, and social equity (Jepson & Vandewalle, 2016). These findings point to the need for more targeted, long-term infrastructure planning that prioritizes vulnerable regions.
 
-## Conclusion
+\newpage
+
+# Conclusion
 
 The findings of this report underscore a continuing inequality in access to basic plumbing facilities across U.S. counties. Although minor improvements have occurred, systemic barriers remain for the most affected regions. Western counties, in particular, continue to lag behind the national average, highlighting a need for better-targeted policy and infrastructure funding. As noted by Deitz and Meehan (2019), such disparities are often tied to broader patterns of social and geographic inequality. Moreover, Jepson and Vandewalle (2016) emphasise that water insecurity is not limited to the Global South—it exists even in developed nations and must be treated as a serious public issue. Addressing these issues is essential to ensuring safe, reliable access to plumbing for all communities.
 
-## Recommendations
+# Recommendations
 
 -   **Invest in Infrastructure:** Focus government funding on counties that are struggling the most, especially places like Arizona, New Mexico and Texas, so they can improve basic plumbing systems.
 -   **Understand Local Needs:** Run local surveys in areas where the problem is getting worse. This can help figure out what's really causing it—like poor housing conditions or changes in population.
 -   **Support Through Policy:** Give financial help, like grants or tax breaks, to encourage people and landlords to fix or upgrade plumbing in low-income communities.
 -   **Include in Health Planning:** Make sure plumbing access is considered when making public health or housing plans, so it gets the attention and support it needs.
-End of Report
 
-## References
+\newpage
 
--   Deitz, S., & Meehan, K. (2019). Plumbing poverty: Mapping hot spots of racial and geographic inequality in U.S. household
-water insecurity. *Annals of the American Association of Geographers*, 109(4), 1092–1109. https://doi.org/10.1080/24694452.2018.1530587
+# References
 
--   Jepson, W., & Vandewalle, E. (2016). Household water insecurity in the Global North: A study of rural and periurban Texas. *Water Security*, 2, 1–12. https://doi.org/10.1016/j.wasec.2016.10.001
+-   Deitz, S., & Meehan, K. (2019). Plumbing poverty: Mapping hot spots of racial and geographic inequality in U.S. household water insecurity. *Annals of the American Association of Geographers*, 109(4), 1092–1109. <https://doi.org/10.1080/24694452.2018.1530587>
 
+-   Jepson, W., & Vandewalle, E. (2016). Household water insecurity in the Global North: A study of rural and periurban Texas. *Water Security*, 2, 1–12. <https://doi.org/10.1016/j.wasec.2016.10.001>

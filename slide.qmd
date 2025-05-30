@@ -6,7 +6,7 @@ date: today
 format: 
   revealjs:
     theme: simple
-    css: style.css
+    css: style/style.css
     slide-number: true
     embed-resources: true # Good for making it self-contained
 ---
