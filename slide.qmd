@@ -6,15 +6,14 @@ date: today
 format: 
   revealjs:
     theme: simple
-    css: style.css
+    css: style/style.css
     slide-number: true
     embed-resources: true # Good for making it self-contained
 ---
 
-## Executive Summary and Introduction {.smaller}
+## Problem Introduction {.smaller}
 
--   **Executive Summary:** Analysis of water insecurity data enables the production of insightful maps of water resources and infrastructure nationwide in the US. These maps show socio-economic elements like housing and indoor plumbing that affect water use and needs. We integrate ACS data to help water resource managers and policymakers identify vulnerable people and infrastructural needs.
--   **Introduction :** Effective water management and policymaking need to understand the intricate relationship between socio-economic factors and water supplies. Annually updated, the U.S. Census Bureau's American Community Survey (ACS) provides demographic, social, economic, and housing data. The `water_insecurity_2022` and `water_insecurity_2023 datasets` used in this study are compiled from relevant indicators within the ACS to answer:
+Effective water management and policymaking need to understand the intricate relationship between socio-economic factors and water supplies. The `water_insecurity_2022` and `water_insecurity_2023 datasets` used in this study are compiled from relevant indicators within the U.S. Census Bureau's American Community Survey (ACS) to answer:
 
 1.  How is indoor plumbing insecurity spatially distributed across US counties in 2022 and 2023?
 
@@ -22,11 +21,13 @@ format:
 
 3.  How do these county-level rates compare to the national average for plumbing access?
 
+Our analysis of water insecurity data enables the production of insightful maps of water resources and infrastructure nationwide in the US to help identify vulnerable people and infrastructural needs.
+
 ------------------------------------------------------------------------
 
 ## Dataset Description
 
-The dataset `water_insecurity_2022` and `water_insecurity_2023` is the US county-level water insecurity data for 2022 and 2023. They come from the `TidyTuesday` project and are usually collated based on publicly available data such as the American Community Survey (ACS).
+The dataset `water_insecurity_2022` and `water_insecurity_2023` is the US county-level water insecurity data for 2022 and 2023. They come from the `TidyTuesday` project.
 
 A two-year dataset was used to compare infrastructure improvements over time, in order to analyse the spatial distribution of the lack of pipeline facilities and thus the areas of need for focus.
 
@@ -66,7 +67,9 @@ A two-year dataset was used to compare infrastructure improvements over time, in
 
 #### Recommendations
 
--   <small> **Invest in Infrastructure:** Focus government funding on counties that are struggling the most, especially places like Arizona, New Mexico, Texas, and Alaska—so they can improve basic plumbing systems.</small>\
+-   <small> **Invest in Infrastructure:** Focus government funding on counties that are struggling the most, especially places like Arizona, New Mexico and Texas, so they can improve basic plumbing systems.</small>\
 -   <small> **Understand Local Needs:** Run local surveys in areas where the problem is getting worse. This can help figure out what's really causing it—like poor housing conditions or changes in population.</small>\
 -   <small>**Support Through Policy:** Give financial help, like grants or tax breaks, to encourage people and landlords to fix or upgrade plumbing in low-income communities.</small>\
 -   <small>**Include in Health Planning:** Make sure plumbing access is considered when making public health or housing plans, so it gets the attention and support it needs.</small>\
+
+# Thank You
