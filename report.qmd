@@ -7,12 +7,11 @@ format:
     include-before-body: style/title.tex
     include-in-header: style/preamble.tex
     mainfont: "Arial"
->>>>>>> origin
     keep-tex: true
     toc: true
     toc-depth: 2
 editor: visual
-author: " Bagas Ari Wibawanto, Xinran Yang,Parth Tendulkar"
+author: ""
 ---
 
 \newpage
@@ -348,11 +347,9 @@ ggplot(water_compare_long_top10, aes(x = reorder(name, -percent_lacking_plumbing
 
 Based on @fig-3, it can be concluded that the majority of Change in Plumbing Insecurity is concentrated in the western United States. Changes in the eastern U.S. are concentrated in only a scattering of counties.The situation in 2023 improves slightly compared to 2022, but high-risk counties are still concentrated, suggesting that local water security and infrastructure investments still need to be further strengthened.
 
-The Western compared to the national average shows a generally higher percentage of lack of indoor plumbing than the national average. This indicates that the West is significantly weaker than the national average in terms of indoor plumbing availability. (@fig-4)
+Through @fig-4 and @fig-5, most counties in the east show values in red (near 0%) or slightly higher. Some counties in the West show a dark red or purple colour, indicating that pipeline deficiencies in some western counties are much higher than the national level. While there is a slight improvement in 2023, it is still well above the national average. This indicates a lack of pipeline and other related infrastructure development in the west compared to the east.
 
-The majority of eastern counties show red (near 0%) or slightly higher values, indicating better accessibility. This indicates that the East is on par with the national average in terms of indoor plumbing availability. (@fig-5)
-
-The top 10 counties with the highest percentage of households lacking plumbing as well as the greatest change in 2022-2023 are shown through @fig-6.
+Research have shown that lack of plumbing is closely related to housing conditions and local economic development, such as Mckinley County, it is the county with the highest ranked poverty rate in New Mexico (MFA Housing New Mexico, 2023). In addition, while the U.S. is moving forward, individual counties are trending backwards, such as Greenwood. (@fig-6)
 
 # Discussion
 
@@ -376,5 +373,7 @@ The findings of this report underscore a continuing inequality in access to basi
 # References
 
 -   Deitz, S., & Meehan, K. (2019). Plumbing Poverty: Mapping Hot Spots of Racial and Geographic Inequality in U.S. Household Water Insecurity. Annals of the American Association of Geographers, 109(4), 1092–1109. <https://doi.org/10.1080/24694452.2018.1530587>
+
+-   MFA Housing New Mexico. (2023). 2023 New Mexico Affordable Housing Needs Assessment. <https://housingnm.org/uploads/documents/2023_NM_Affordable_Housing_Needs_Assessment.pdf>
 
 -   Wendy Jepson & Emily Vandewalle (2016) Household Water Insecurity in the Global North: A Study of Rural and Periurban Settlements on the Texas–Mexico Border, The Professional Geographer, 68:1, 66-81, DOI: 10.1080/00330124.2015.1028324. <http://dx.doi.org/10.1080/00330124.2015.1028324>
