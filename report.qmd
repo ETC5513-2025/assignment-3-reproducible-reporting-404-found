@@ -11,7 +11,7 @@ format:
     toc: true
     toc-depth: 2
 editor: visual
-author: ""
+author: " Bagas Ari Wibawanto, Xinran Yang,Parth Tendulkar"
 ---
 
 \newpage
