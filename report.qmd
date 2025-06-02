@@ -22,11 +22,11 @@ Analysis of water insecurity data enables the production of insightful maps of w
 
 # Introduction
 
-Effective water management and policymaking need to understand the intricate relationship between socio-economic factors and water supplies. Annually updated, the U.S. Census Bureau's American Community Survey (ACS) provides demographic, social, economic, and housing data. The `water_insecurity_2022` and `water_insecurity_2023 datasets` used in this study are compiled from relevant indicators within the ACS to answer:  
+Effective water management and policymaking need to understand the intricate relationship between socio-economic factors and water supplies. Annually updated, the U.S. Census Bureau's American Community Survey (ACS) provides demographic, social, economic, and housing data. The `water_insecurity_2022` and `water_insecurity_2023 datasets` used in this study are compiled from relevant indicators within the ACS to answer:
 
-1. How is indoor plumbing insecurity spatially distributed across US counties in 2022 and 2023?\
-2. What are the significant county-level changes in plumbing insecurity between these years?\
-3. How do these county-level rates compare to the national average for plumbing access?\
+1.  How is indoor plumbing insecurity spatially distributed across US counties in 2022 and 2023?\
+2.  What are the significant county-level changes in plumbing insecurity between these years?\
+3.  How do these county-level rates compare to the national average for plumbing access?\
 
 \newpage
 
